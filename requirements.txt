@@ -1,0 +1,23 @@
+# Dependencias para el servidor web
+flask>=2.3.0
+flask-cors>=4.0.0
+
+# Dependencias opcionales para integración con modelos de lenguaje
+# Descomenta según el proveedor que quieras usar:
+
+# OpenAI
+# openai>=1.0.0
+
+# Anthropic (Claude)
+# anthropic>=0.18.0
+
+# Google (Gemini)
+# google-generativeai>=0.3.0
+
+# Azure OpenAI
+# openai>=1.0.0
+# azure-identity>=1.15.0
+
+# Dependencias generales
+# python-dotenv>=1.0.0  # Para manejo de variables de entorno
+
