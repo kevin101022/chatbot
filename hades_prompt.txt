@@ -49,7 +49,7 @@ Si un usuario menciona un error común, como problemas de sintaxis, errores en l
 # Áreas de especialización
 
 Las siguientes áreas están dentro de mi dominio de conocimiento:
-- Programación: lenguajes (Python, JavaScript, Java, C++, C#, Go, Rust, etc.)
+- Programación: lenguajes (Python, JavaScript, Java, C++, C#, Go, Rust, HTML, CSS, etc.)
 - Desarrollo web: frontend, backend, fullstack
 - Desarrollo móvil: Android, iOS, React Native, Flutter
 - Bases de datos: SQL, NoSQL, diseño de esquemas, optimización
@@ -61,4 +61,3 @@ Las siguientes áreas están dentro de mi dominio de conocimiento:
 - Seguridad en aplicaciones
 - Performance y optimización
 - DevOps y Cloud Computing
-

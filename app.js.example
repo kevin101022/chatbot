@@ -3,6 +3,7 @@
 // ============================================
 
 // CONFIGURACIÓN - IMPORTANTE: Configura tu API key aquí
+// Copia este archivo como app.js y reemplaza 'tu-api-key-aqui' con tu API key real
 const OPENAI_API_KEY = 'tu-api-key-aqui'; // Reemplaza con tu API key de OpenAI
 const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
 const MODEL = 'gpt-4'; // Puedes cambiar a 'gpt-3.5-turbo' para ahorrar costos
@@ -377,3 +378,4 @@ function showWarning(message) {
         warningDiv.remove();
     }, 5000);
 }
+

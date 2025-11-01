@@ -9,200 +9,244 @@ Hades es un chatbot altamente preciso y eficiente diseñado para responder exclu
 - **Buenas prácticas**: Promueve estándares de calidad en el desarrollo
 - **Manejo de límites**: Reconoce y redirige preguntas fuera de su especialidad de manera educada
 - **Amplio conocimiento**: Cubre lenguajes, frameworks, herramientas y metodologías de desarrollo
+- **UI Moderna**: Interfaz web increíble con Tailwind CSS y efectos visuales
 
 ## 📁 Estructura del Proyecto
 
 ```
 chatbotk/
-├── index.html           # Frontend - Interfaz web moderna
-├── styles.css           # Estilos tipo inframundo (Hades)
-├── app.js               # JavaScript para interacciones
-├── app.py               # Servidor Flask para el frontend
-├── hades_prompt.py      # Prompt del sistema completo
-├── config.py            # Configuración del chatbot
-├── hades_chatbot.py     # Implementación del chatbot
-├── quick_start.py       # Script de inicio rápido
-├── example_integration.py # Ejemplos de integración con LLMs
-├── hades_prompt.txt     # Prompt en formato texto plano
-├── requirements.txt     # Dependencias
+├── index.html           # Frontend - Interfaz web moderna con Tailwind CSS
+├── styles.css           # Estilos complementarios
+├── app.js.example       # Plantilla de app.js (cópiala y configura tu API key)
+├── app.js               # JavaScript con integración a OpenAI API (NO subir a Git)
+├── hades_prompt.txt     # Prompt del sistema completo
+├── .gitignore          # Archivos a ignorar en Git
 └── README.md            # Documentación
 ```
 
-## 🚀 Uso Rápido
+## 🚀 Inicio Rápido
 
-### 🌐 Frontend Web (Recomendado)
+### Requisitos
 
-**¡El chatbot ahora tiene una interfaz web moderna tipo inframundo! 🔥**
+1. **Cuenta de OpenAI**: Necesitas una API key de OpenAI para usar el chatbot
+   - Regístrate en: https://platform.openai.com/
+   - Obtén tu API key desde: https://platform.openai.com/api-keys
 
-1. **Instalar dependencias:**
-```bash
-pip install flask flask-cors
+### Configuración desde GitHub
+
+1. **Clona el repositorio**:
+   ```bash
+   git clone https://github.com/tu-usuario/chatbotk.git
+   cd chatbotk
+   ```
+
+2. **Configura tu API key de OpenAI**:
+   
+   **Opción 1: Copiar el archivo de ejemplo**
+   ```bash
+   cp app.js.example app.js
+   ```
+   
+   Luego edita `app.js` y reemplaza:
+   ```javascript
+   const OPENAI_API_KEY = 'tu-api-key-aqui';
+   ```
+   
+   Con tu API key real:
+   ```javascript
+   const OPENAI_API_KEY = 'sk-tu-api-key-real-aqui';
+   ```
+   
+   **Opción 2: Crear app.js manualmente** copiando el contenido de `app.js.example` y configurando tu API key.
+
+3. **Abre `index.html` en tu navegador**:
+   
+   Puedes:
+   - Abrirlo directamente haciendo doble clic en `index.html`
+   - O usar un servidor local simple:
+     ```bash
+     # Con Python (si lo tienes instalado)
+     python -m http.server 8000
+     
+     # O con Node.js (si lo tienes instalado)
+     npx http-server -p 8000
+     ```
+   
+   Luego abre: `http://localhost:8000`
+
+### ⚠️ Importante sobre la API Key
+
+Por seguridad, **NUNCA** subas tu API key a repositorios públicos:
+
+1. El archivo `app.js` con tu API key está protegido en `.gitignore`
+2. Usa `app.js.example` como plantilla (ya está en el repositorio)
+3. **NUNCA** hagas commit de `app.js` con tu API key real
+4. Si accidentalmente subiste tu API key, cámbiala inmediatamente en OpenAI
+
+> 💡 **Tip**: Si quieres colaborar al proyecto, puedes enviar PRs usando `app.js.example` como referencia.
+
+## 💡 Ejemplos de Uso
+
+Una vez configurado, puedes hacer preguntas como:
+
+- **Optimización**: "¿Cómo puedo optimizar una consulta SQL para que sea más rápida?"
+- **Conceptos**: "¿Qué es un closure en JavaScript?"
+- **Buenas prácticas**: "¿Cuáles son las mejores prácticas para manejar errores en Node.js?"
+- **Arquitectura**: "¿Cuándo debería usar microservicios en lugar de una arquitectura monolítica?"
+- **Herramientas**: "¿Cómo configuro Docker para una aplicación React?"
+
+### Ejemplo de Respuesta
+
+**Pregunta:** "¿Cómo optimizo una consulta SQL?"
+
+**Respuesta de Hades:**
+```
+Puedo ayudarte con eso. Para optimizar una consulta SQL, hay varias estrategias:
+
+1. Usar índices en columnas frecuentemente consultadas
+2. Evitar SELECT * y seleccionar solo columnas necesarias
+3. Limitar el uso de subconsultas anidadas
+4. Usar JOINs eficientes en lugar de múltiples consultas
+
+Ejemplo de optimización:
+
+❌ Ineficiente:
+SELECT * FROM usuarios WHERE edad > 18;
+
+✅ Optimizado:
+SELECT id, nombre, email FROM usuarios 
+WHERE edad > 18 AND estado = 'activo';
 ```
 
-2. **Iniciar el servidor:**
-```bash
-python app.py
+## 🎨 Tecnologías Utilizadas
+
+- **HTML5**: Estructura semántica
+- **Tailwind CSS**: Framework CSS moderno (via CDN)
+- **JavaScript (ES6+)**: Lógica del frontend
+- **OpenAI API**: Integración con GPT-4 o GPT-3.5-turbo
+- **Highlight.js**: Resaltado de sintaxis para código
+- **Canvas API**: Animación de partículas en el fondo
+
+## 📝 Personalización del Prompt
+
+El prompt del sistema está en `hades_prompt.txt`. Puedes editarlo para:
+
+- Ajustar el comportamiento del chatbot
+- Agregar o modificar áreas de especialización
+- Cambiar el tono de las respuestas
+- Personalizar el manejo de preguntas fuera de tema
+
+El archivo se carga automáticamente cuando inicias la aplicación.
+
+## 🔧 Configuración Avanzada
+
+### Cambiar el Modelo de OpenAI
+
+En `app.js`, puedes cambiar el modelo:
+
+```javascript
+const MODEL = 'gpt-4';  // Modelo más potente pero más costoso
+// o
+const MODEL = 'gpt-3.5-turbo';  // Más económico
 ```
 
-3. **Abrir en el navegador:**
-```
-http://localhost:5000
-```
+### Ajustar Parámetros de la API
 
-¡Disfruta de la interfaz moderna con tema del inframundo! 🌋
+Puedes modificar los parámetros en la función `sendToOpenAI()`:
 
-### 💻 Uso Básico (Backend)
-
-```python
-from hades_chatbot import create_hades_instance
-
-# Crear instancia del chatbot
-hades = create_hades_instance()
-
-# Hacer una pregunta
-respuesta = hades.handle_query("¿Cómo optimizo una consulta SQL?")
-print(respuesta)
+```javascript
+temperature: 0.7,      // Creatividad (0-1, más alto = más creativo)
+max_tokens: 2000       // Máximo de tokens en la respuesta
 ```
 
-### Obtener el Prompt del Sistema
+## 🚫 Manejo de Preguntas Fuera de Tema
 
-```python
-from hades_prompt import get_system_prompt
+Si preguntas algo fuera del ámbito de desarrollo de software, Hades responderá educadamente:
 
-# Obtener el prompt completo
-prompt = get_system_prompt()
-print(prompt)
+**Ejemplo:**
+- **Pregunta**: "¿Cuál es tu opinión sobre el cambio climático?"
+- **Respuesta**: "Lo siento, no soy experto en este tema. Sin embargo, puedo ayudarte con cualquier duda relacionada con desarrollo de software."
+
+## 🎨 Personalización Visual
+
+### Colores del Tema
+
+Los colores del tema "inframundo" están definidos en `index.html`:
+
+```javascript
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                'inferno-red': '#ff3b3b',
+                'inferno-orange': '#ff6b35',
+                'inferno-yellow': '#ffa726',
+            }
+        }
+    }
+}
 ```
 
-## 📝 Integración con APIs de LLM
+Puedes cambiarlos para personalizar la apariencia.
 
-El prompt está diseñado para ser usado directamente con APIs de modelos de lenguaje como:
+## 📋 Áreas de Especialización de Hades
 
-- OpenAI GPT
-- Anthropic Claude
-- Google Gemini
-- Azure OpenAI
-- Otros modelos compatibles
-
-### Ejemplo con OpenAI (requiere openai package)
-
-```python
-from openai import OpenAI
-from hades_prompt import get_system_prompt
-
-client = OpenAI(api_key="tu-api-key")
-
-def chat_with_hades(user_query):
-    response = client.chat.completions.create(
-        model="gpt-4",
-        messages=[
-            {"role": "system", "content": get_system_prompt()},
-            {"role": "user", "content": user_query}
-        ]
-    )
-    return response.choices[0].message.content
-```
-
-## 🎓 Áreas de Especialización
-
-Hades puede ayudar con:
-
-- ✅ Lenguajes de programación (Python, JavaScript, Java, C++, etc.)
-- ✅ Desarrollo web (frontend, backend, fullstack)
-- ✅ Desarrollo móvil (Android, iOS, React Native, Flutter)
-- ✅ Bases de datos (SQL, NoSQL, optimización)
-- ✅ Arquitecturas de software (microservicios, monolitos, serverless)
-- ✅ Metodologías (Agile, Scrum, TDD, CI/CD)
-- ✅ Herramientas (Git, Docker, Kubernetes, IDEs)
+- ✅ Programación: lenguajes (Python, JavaScript, Java, C++, C#, Go, Rust, HTML, CSS, etc.)
+- ✅ Desarrollo web: frontend, backend, fullstack
+- ✅ Desarrollo móvil: Android, iOS, React Native, Flutter
+- ✅ Bases de datos: SQL, NoSQL, diseño de esquemas, optimización
+- ✅ Arquitecturas: microservicios, monolitos, serverless
+- ✅ Metodologías: Agile, Scrum, TDD, CI/CD
+- ✅ Herramientas: Git, Docker, Kubernetes, IDEs
 - ✅ Patrones de diseño y arquitectura
-- ✅ Testing (unitarios, integración, E2E)
+- ✅ Testing: unitarios, integración, E2E
 - ✅ Seguridad en aplicaciones
 - ✅ Performance y optimización
 - ✅ DevOps y Cloud Computing
 
-## ⚠️ Manejo de Preguntas Fuera de Tema
+## 🐛 Solución de Problemas
 
-Cuando se le hace una pregunta fuera del ámbito de desarrollo de software, Hades responderá de manera educada pero firme:
+### El chatbot no responde
 
-> "Lo siento, no soy experto en este tema. Sin embargo, puedo ofrecerte ayuda con cualquier pregunta sobre desarrollo de software."
+1. Verifica que tu API key esté configurada correctamente en `app.js`
+2. Asegúrate de tener créditos disponibles en tu cuenta de OpenAI
+3. Verifica tu conexión a internet
+4. Abre la consola del navegador (F12) para ver errores
 
-## 📋 Directrices de Respuesta
+### Error de CORS
 
-1. **Claridad**: Respuestas comprensibles con ejemplos cuando sea necesario
-2. **Precisión**: Basadas en el lenguaje o tecnología específica mencionada
-3. **Buenas prácticas**: Énfasis en código limpio, modularidad y documentación
-4. **Honestidad**: Admite cuando no tiene suficiente información
-5. **Recursos útiles**: Sugiere alternativas confiables cuando sea apropiado
+Si ves errores de CORS, asegúrate de estar sirviendo los archivos desde un servidor HTTP (no solo abriendo el archivo directamente). Usa:
 
-## 🔧 Configuración
-
-Puedes personalizar el comportamiento del chatbot editando `config.py`:
-
-```python
-CHATBOT_CONFIG = {
-    "name": "Hades",
-    "specialization": "Desarrollo de Software",
-    # ... más configuraciones
-}
-```
-
-## 📦 Dependencias
-
-### Dependencias principales (requeridas):
 ```bash
-pip install flask flask-cors
+python -m http.server 8000
+# o
+npx http-server -p 8000
 ```
 
-### Dependencias opcionales para LLMs:
-- `openai` (para OpenAI GPT)
-- `anthropic` (para Claude)
-- O la librería correspondiente para tu proveedor de LLM preferido
+### El prompt no se carga
 
-## 🤝 Contribuciones
-
-Este proyecto está diseñado para ser una base sólida. Puedes extenderlo con:
-
-- Integraciones con diferentes APIs de LLM
-- Sistema de memoria/conversación persistente
-- Validación más sofisticada de queries
-- Interfaz de usuario (web, CLI, etc.)
-- Sistema de logging y métricas
+Si el archivo `hades_prompt.txt` no se puede cargar, el sistema usará un prompt por defecto. Asegúrate de que el archivo esté en el mismo directorio que `index.html`.
 
 ## 📄 Licencia
 
-Este proyecto está disponible para uso y modificación según tus necesidades.
+Este proyecto es de código abierto y está disponible para uso libre.
 
-## 💡 Ejemplo de Conversación
+## 🤝 Contribuciones
 
-```
-Usuario: ¿Cómo puedo optimizar una consulta SQL para que sea más rápida?
+Las contribuciones son bienvenidas. Siéntete libre de:
 
-Hades: Puedo ayudarte con eso. Para optimizar una consulta SQL, asegúrate de 
-que estás utilizando índices en las columnas que más consultas, evita los 
-SELECT *, y limita el uso de subconsultas anidadas si es posible...
+- Reportar bugs
+- Sugerir mejoras
+- Enviar pull requests
 
-[Incluye ejemplos de código y mejores prácticas]
-```
+## 📧 Soporte
 
-## 🎨 Características del Frontend
+Si tienes preguntas o problemas, puedes:
 
-- **Diseño Moderno**: Interfaz web moderna con tema del inframundo
-- **Animaciones Suaves**: Efectos visuales tipo fuego y partículas
-- **Colores Temáticos**: Rojo, naranja, negro (inframundo)
-- **Responsive**: Funciona en móviles y escritorio
-- **Tiempo Real**: Conversación fluida con indicadores de carga
-- **Formato de Código**: Resalta código en las respuestas
-
-## 🌐 Funcionalidades del Frontend
-
-- Chat en tiempo real con Hades
-- Validación automática de queries
-- Indicador de carga animado
-- Fondo de partículas animado
-- Scroll automático a nuevos mensajes
-- Formato automático de código en respuestas
+1. Revisar la sección de solución de problemas
+2. Verificar la consola del navegador para errores
+3. Asegurarte de tener la última versión del código
 
 ---
 
-**Hades** - Tu asistente experto en desarrollo de software 🚀🔥
-
+**🔥 Hades está listo para ayudarte con tus dudas de desarrollo de software! 🔥**
