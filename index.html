@@ -4,165 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hades - Chatbot de Desarrollo de Software</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- Highlight.js para resaltado de código -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <!-- Estilos complementarios -->
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            font-family: 'Rajdhani', sans-serif;
-        }
-        .title-font {
-            font-family: 'Orbitron', monospace;
-        }
-        /* Animaciones personalizadas */
-        @keyframes flameFlicker {
-            0%, 100% { transform: scale(1) rotate(-2deg); filter: drop-shadow(0 0 10px #ff3b3b); }
-            50% { transform: scale(1.1) rotate(2deg); filter: drop-shadow(0 0 20px #ff6b35); }
-        }
-        .flame {
-            animation: flameFlicker 1.5s ease-in-out infinite;
-        }
-        @keyframes glowPulse {
-            0%, 100% { box-shadow: 0 0 15px rgba(255, 59, 59, 0.5); }
-            50% { box-shadow: 0 0 25px rgba(255, 59, 59, 0.7), 0 0 35px rgba(255, 107, 53, 0.5); }
-        }
-        .glow-animation {
-            animation: glowPulse 2s ease-in-out infinite;
-        }
-        /* Scrollbar personalizada */
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: rgba(26, 26, 26, 0.5);
-            border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #ff3b3b, #ff6b35);
-            border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #ff6b35, #ffa726);
-        }
-        /* Efecto de typing */
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-        @keyframes blink {
-            50% { border-color: transparent; }
-        }
-        .typing-indicator::after {
-            content: '|';
-            animation: blink 1s infinite;
-        }
-    </style>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'inferno-red': '#ff3b3b',
-                        'inferno-orange': '#ff6b35',
-                        'inferno-yellow': '#ffa726',
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-black text-white min-h-screen">
-    <!-- Particle Background Canvas -->
-    <canvas id="particleCanvas" class="fixed inset-0 w-full h-full z-0 pointer-events-none"></canvas>
-    
-    <!-- Main Container -->
-    <div class="relative z-10 container mx-auto px-4 py-6 max-w-6xl min-h-screen flex flex-col">
-        <!-- Header -->
-        <header class="text-center mb-8">
-            <h1 class="title-font text-5xl md:text-7xl font-black mb-4 flex items-center justify-center gap-4">
-                <span class="flame text-4xl md:text-6xl">🔥</span>
-                <span class="bg-gradient-to-r from-inferno-red via-inferno-orange to-inferno-yellow bg-clip-text text-transparent glow-animation">
-                    HADES
-                </span>
-                <span class="flame text-4xl md:text-6xl">🔥</span>
-            </h1>
-            <p class="text-xl md:text-2xl text-gray-300 font-light tracking-wide">
-                Chatbot Especializado en Desarrollo de Software
-            </p>
-            <div class="w-48 h-0.5 bg-gradient-to-r from-transparent via-inferno-red to-transparent mx-auto mt-4 shadow-lg shadow-inferno-red/50"></div>
-            <p class="text-inferno-yellow text-sm mt-4 font-semibold">
-                ⚠️ Solo puedo ayudarte con temas relacionados con desarrollo de software
-            </p>
+<body>
+    <div class="chat-container">
+        <header class="chat-header">
+            <div class="header-content">
+                <div class="bot-avatar">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="#6366f1"/>
+                        <text x="50" y="65" font-size="50" fill="white" text-anchor="middle" font-weight="bold">H</text>
+                    </svg>
+                </div>
+                <div class="header-info">
+                    <h1>Hades</h1>
+                    <p class="status">Experto en Desarrollo de Software</p>
+                </div>
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span>En línea</span>
+                </div>
+            </div>
         </header>
 
-        <!-- Chat Container -->
-        <div class="flex-1 flex flex-col bg-gray-900/80 backdrop-blur-lg rounded-2xl border border-inferno-red/30 shadow-2xl shadow-inferno-red/20 overflow-hidden">
-            <!-- Messages Area -->
-            <div id="chatMessages" class="flex-1 p-6 md:p-8 overflow-y-auto custom-scrollbar min-h-[400px] max-h-[calc(100vh-350px)]">
-                <!-- Mensaje inicial del bot -->
-                <div class="message bot-message mb-6 flex gap-4 animate-fadeIn">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-inferno-red to-inferno-orange flex items-center justify-center text-2xl glow-animation shadow-lg shadow-inferno-red/50">
-                        ⚡
-                    </div>
-                    <div class="flex-1">
-                        <div class="bg-gray-800/90 border-l-4 border-inferno-red rounded-lg p-4 shadow-lg">
-                            <p class="mb-2">¡Hola! Soy <strong class="text-inferno-orange">Hades</strong>, tu asistente especializado en desarrollo de software. 🔥</p>
-                            <p class="mb-2">Pregúntame sobre programación, arquitectura, herramientas, buenas prácticas y más.</p>
-                            <p class="text-inferno-yellow font-semibold">⚠️ Solo puedo ayudarte con temas relacionados con desarrollo de software.</p>
-                            <p class="mt-3 text-sm text-gray-400">💡 Ejemplo: "¿Cómo optimizo una consulta SQL?" o "¿Qué es un closure en JavaScript?"</p>
-                        </div>
-                    </div>
+        <main class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                <div class="message-avatar">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="#6366f1"/>
+                        <text x="50" y="65" font-size="50" fill="white" text-anchor="middle" font-weight="bold">H</text>
+                    </svg>
+                </div>
+                <div class="message-content">
+                    <p>¡Qué más! Soy <strong>Hades</strong>, su asistente experto en desarrollo de software. Estoy acá para ayudarle con programación, arquitecturas, bases de datos, herramientas de desarrollo y cualquier tema relacionado con el desarrollo de software.</p>
+                    <p>¿En qué puedo ayudarle hoy?</p>
                 </div>
             </div>
+        </main>
 
-            <!-- Input Area -->
-            <div class="border-t border-inferno-red/30 bg-gray-950/50 p-4 md:p-6">
-                <!-- Loading Indicator -->
-                <div id="loadingIndicator" class="hidden text-center mb-4">
-                    <div class="flex justify-center gap-2 mb-2">
-                        <span class="w-2 h-2 bg-inferno-red rounded-full animate-bounce"></span>
-                        <span class="w-2 h-2 bg-inferno-orange rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
-                        <span class="w-2 h-2 bg-inferno-yellow rounded-full animate-bounce" style="animation-delay: 0.4s"></span>
-                    </div>
-                    <p class="text-gray-400 text-sm">Hades está pensando...</p>
-                </div>
-
-                <!-- Input Form -->
-                <form id="chatForm" class="flex gap-4">
-                    <input 
-                        type="text" 
-                        id="userInput" 
-                        class="flex-1 bg-gray-800/80 border-2 border-gray-700 rounded-xl px-5 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-inferno-red focus:ring-2 focus:ring-inferno-red/50 transition-all duration-300"
-                        placeholder="Escribe tu pregunta sobre desarrollo de software..."
-                        autocomplete="off"
-                    >
-                    <button 
-                        type="submit" 
-                        id="sendButton"
-                        class="bg-gradient-to-r from-inferno-red to-inferno-orange hover:from-inferno-orange hover:to-inferno-yellow text-white font-semibold px-6 md:px-8 py-3 rounded-xl shadow-lg shadow-inferno-red/50 hover:shadow-inferno-red/70 transition-all duration-300 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-2"
-                    >
-                        <span class="text-xl">⚡</span>
-                        <span class="hidden md:inline">Enviar</span>
-                    </button>
-                </form>
+        <footer class="chat-input-container">
+            <div class="input-wrapper">
+                <textarea 
+                    id="userInput" 
+                    placeholder="Escribe tu pregunta sobre desarrollo de software..." 
+                    rows="1"
+                    autofocus
+                ></textarea>
+                <button id="sendButton" class="send-button" aria-label="Enviar mensaje">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
             </div>
-        </div>
-
-        <!-- Footer -->
-        <footer class="text-center mt-8 text-gray-500 text-sm">
-            <p>Powered by <span class="text-inferno-orange font-semibold">OpenAI API</span> • Diseñado para desarrolladores</p>
-            <p class="mt-2 text-xs">⚠️ Necesitas configurar tu API key de OpenAI en el código JavaScript</p>
+            <div class="input-footer">
+                <span class="hint">Presiona Enter para enviar, Shift+Enter para nueva línea</span>
+            </div>
         </footer>
     </div>
 
-    <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
